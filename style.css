@@ -1,0 +1,181 @@
+/* --- RESET & VARIABLES (Style PRO + Touche NÉON) --- */
+:root {
+    /* Fond propre (SaaS / Pro) */
+    --bg-app: #f3f4f6;
+    --bg-panel: #ffffff;
+    
+    /* COULEUR NÉON (Juste pour les bordures) */
+    --neon-accent: #06b6d4; /* Un Cyan "Tech" très joli */
+    
+    /* Texte lisible */
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    
+    /* La définition du cadre NÉON */
+    --border-neon: 2px solid var(--neon-accent);
+    --shadow-neon: 0 0 15px rgba(6, 182, 212, 0.25); /* Lueur douce */
+    
+    --radius: 12px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    margin: 0; padding: 0; min-height: 100vh;
+}
+
+/* --- HEADER --- */
+.main-header {
+    background-color: var(--bg-panel);
+    border-bottom: 1px solid #e5e7eb; /* Pas de néon ici pour ne pas surcharger */
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.brand h1 {
+    margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--neon-accent); /* Titre en cyan */
+}
+
+.header-info { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+
+/* --- CONTAINER PRINCIPAL --- */
+.dashboard-container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+
+/* --- NAVIGATION (TABS) --- */
+.tabs {
+    display: flex; gap: 1rem; margin-bottom: 2rem;
+    border-bottom: 2px solid #e5e7eb; padding-bottom: 2px;
+}
+
+.tab-button {
+    background: none; border: none; padding: 0.8rem 1.2rem;
+    font-size: 1rem; font-weight: 600; color: var(--text-muted);
+    cursor: pointer; position: relative; transition: all 0.3s;
+}
+
+.tab-button:hover { color: var(--neon-accent); }
+.tab-button.active { color: var(--neon-accent); }
+
+.tab-button.active::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 3px;
+    background-color: var(--neon-accent); border-radius: 3px 3px 0 0;
+    box-shadow: 0 -2px 6px rgba(6, 182, 212, 0.4); /* Petite lueur sous l'onglet */
+}
+
+/* --- LE STYLE NÉON APPLIQUÉ AUX CADRES --- */
+.controls, .panel, .card, .graph-container {
+    background: var(--bg-panel);
+    border-radius: var(--radius);
+    
+    /* ICI : Le cadre Néon */
+    border: var(--border-neon);
+    box-shadow: var(--shadow-neon);
+    
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* --- CONTROLS (Dates) --- */
+.controls {
+    padding: 1.5rem; margin-bottom: 2rem;
+    display: flex; flex-wrap: wrap; align-items: flex-end;
+    justify-content: space-between; gap: 1.5rem;
+}
+
+.inputs-group { display: flex; gap: 1.5rem; }
+.input-wrapper { display: flex; flex-direction: column; gap: 0.5rem; }
+.input-wrapper label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+
+input[type="datetime-local"] {
+    padding: 0.6rem; border: 1px solid #d1d5db; border-radius: 6px;
+    font-family: 'Inter', sans-serif; color: var(--text-main); background: #f9fafb; outline: none;
+}
+input[type="datetime-local"]:focus {
+    border-color: var(--neon-accent);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+}
+
+.buttons-group { display: flex; gap: 1rem; }
+
+button.btn-primary, button.btn-secondary {
+    padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--neon-accent); color: white;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+.btn-primary:hover { background-color: #0891b2; } /* Cyan un peu plus foncé au survol */
+
+.btn-secondary { background-color: #f3f4f6; color: var(--text-main); border: 1px solid #d1d5db; }
+.btn-secondary:hover { background-color: #e5e7eb; }
+
+/* --- LAYOUT TEMPS RÉEL --- */
+.tab-content { display: none; } .tab-content.active { display: block; }
+.layout { display: grid; grid-template-columns: 350px 1fr; gap: 2rem; align-items: start; }
+
+/* Panel gauche (Jauges) */
+.panel { padding: 1.5rem; }
+.panel h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--text-main); }
+
+.jauge { margin-bottom: 1.5rem; }
+.jauge-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; }
+.jauge-unit { color: var(--text-muted); font-size: 0.8rem; font-weight: normal; }
+.extr { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Barres de progression */
+progress { width: 100%; height: 10px; border-radius: 10px; appearance: none; }
+progress::-webkit-progress-bar { background-color: #e5e7eb; border-radius: 10px; }
+progress::-webkit-progress-value {
+    background-color: var(--neon-accent); /* Cyan */
+    border-radius: 10px; transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.6); /* Glow sur la barre */
+}
+
+/* --- CARTES CARRÉES (2x2) --- */
+#cards {
+    display: grid;
+    /* On force 2 colonnes de 180px */
+    grid-template-columns: repeat(2, 180px);
+    gap: 1.5rem;
+}
+
+.card {
+    /* Style carré centré */
+    aspect-ratio: 1 / 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    /* Lueur plus forte au survol */
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.card h3 {
+    margin: 0 0 10px 0; font-size: 0.8rem; text-transform: uppercase;
+    color: var(--text-muted); letter-spacing: 0.5px;
+}
+
+.card-content { margin: 0; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+
+.value { font-size: 2.2rem; font-weight: 700; color: var(--text-main); line-height: 1; }
+.unite { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+
+/* --- GRAPHIQUES --- */
+.grid-graphs { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+.graph-container { padding: 1.5rem; }
+.graph-container h3 { margin-top: 0; font-size: 1rem; color: var(--text-main); margin-bottom: 1rem; }
+.graph { width: 100%; height: 300px; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .inputs-group { flex-direction: column; }
+    .buttons-group { flex-direction: column; }
+    .buttons-group button { width: 100%; }
+    #cards { grid-template-columns: repeat(2, 1fr); justify-content: center; }
+}
